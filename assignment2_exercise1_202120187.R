@@ -16,9 +16,9 @@ summations <- function(data, MF = FALSE) {
   if (identical(MF, FALSE)) {
     return(colSums(data) * 1000)
   } else if (MF == 1) {
-    return(sum(colSums(dataset[, c(1,3)])) * 1000)
+    return(sum(colSums(data[, c(1,3)])) * 1000)
   } else if (MF == 2) {
-    return(sum(colSums(dataset[, c(2,4)])) * 1000)
+    return(sum(colSums(data[, c(2,4)])) * 1000)
   }
 }
 
