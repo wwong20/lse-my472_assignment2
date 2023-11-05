@@ -1,0 +1,66 @@
+---
+title: "Assignment 2"
+author: "202120187"
+date: "5 November 2023"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+# this chunk contains code that sets global options for the entire .Rmd. 
+# we use include=FALSE to suppress it from the top of the document, but it will still appear in the appendix. 
+
+knitr::opts_chunk$set(echo = FALSE) # actually set the global chunk options. 
+# we set echo=FALSE to suppress code such that it by default does not appear throughout the document. 
+# note: this is different from .Rmd default
+```
+
+## Exercise 1
+
+```{r}
+# For this exercise, I will be using the built-in R dataset "VADeaths".
+data("VADeaths")
+
+# Renaming the column names to remove the spaces.
+colnames(VADeaths) <- c("RuralMale", "RuralFemale", "UrbanMale", "UrbanFemale")
+
+# This function "summations" gives the total number of people above 50 who died
+# in 1940, categorized by their residential area (Rural/Urban) and gender 
+# (Male/Female).
+
+# Added functionality to the function, where Males are coded as 1, and Females
+# are coded as 2. If the argument exists, it will instead return the total
+# number of that gender who died that year, regardless of residential area.
+
+summations <- function(data, MF = FALSE) {
+  if (identical(MF, FALSE)) {
+    return(colSums(data) * 1000)
+  } else if (MF == 1) {
+    return(sum(colSums(data[, c(1,3)])) * 1000)
+  } else if (MF == 2) {
+    return(sum(colSums(data[, c(2,4)])) * 1000)
+  }
+}
+
+# Output of the function
+summations(VADeaths)
+
+```
+
+As we see above, the function "summations" returns the output of each column of the "VADeaths" dataset when it takes only one argument, allowing us to see the number of people who died in 1940, categorized by residential area and gender.
+
+We can see below that with the second argument, the function instead returns the total number of males (coded "1"), or females (coded "2") above 50 that died in 1940, regardless of residential area.
+
+```{r}
+# Output of the function with the second argument
+summations(VADeaths,1)
+summations(VADeaths,2)
+```
+
+## Appendix: All code in this assignment
+
+```{r ref.label=knitr::all_labels(), echo=TRUE, eval=FALSE}
+# this chunk generates the complete code appendix. 
+# eval=FALSE tells R not to run (``evaluate'') the code here (it was already run before).
+```
